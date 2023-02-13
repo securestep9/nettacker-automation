@@ -1,0 +1,29 @@
+# This is a sample workflow to demonstate automation of automating OWASP Nettacker scans using GitHub Actions 
+
+name: Nettacker owasp.org 
+on:
+  schedule:
+    - cron: '35 0 * * *' # Run every night
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  nettacker-scan:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    container: 
+      image: owasp/nettacker:0.0.2
+
+    # Run Nettacker on OWASP.org site (allowed to scan)
+    # RESPONSIBLE USE WARNING: Never use Nettacker nor other vulnerability scanning tools on targets without permission
+    steps:        
+      - name: nettacker-run-owasp
+        run: python /usr/src/owaspnettacker/nettacker.py -i owasp.org -s -m server_version_vuln,x_powered_by_vuln,port_scan -o report.csv -M 30 -g 80,443
+      - uses: actions/upload-artifact@v3
+        with:
+          name: nettacker-report-${{github.run_number}}
+          path: report.csv
+
