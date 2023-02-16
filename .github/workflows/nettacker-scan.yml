@@ -1,5 +1,4 @@
-# This is a sample workflow to demonstate automation of automating OWASP Nettacker scans using GitHub Actions 
-
+# This is a sample workflow to demonstrate automation of OWASP Nettacker scans using GitHub Actions 
 name: Nettacker scan owasp.org 
 on:
   schedule:
