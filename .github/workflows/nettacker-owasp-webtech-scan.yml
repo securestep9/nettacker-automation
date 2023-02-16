@@ -1,6 +1,6 @@
 # This is a sample workflow to demonstrate automation of OWASP Nettacker scans using GitHub Actions 
 
-name: Nettacker full web-tech scan owasp.org 
+name: Full web-tech scan owasp.org 
 on:
   schedule:
     - cron: '35 01 * * *' # Run every night at 01:35
@@ -20,7 +20,7 @@ jobs:
     # RESPONSIBLE USE WARNING: Never use Nettacker nor other vulnerability scanning tools on targets without permission
     steps:        
       - name: nettacker-run-owasp
-        run: python /usr/src/owaspnettacker/nettacker.py -i owasp.org -s -m server_version_vuln,x_powered_by_vuln,port_scan,wappalyzer_scan -o owasp-report-wappalyzer.csv -g 80,443
+        run: python /usr/src/owaspnettacker/nettacker.py -i owasp.org -s -m server_version_vuln,x_powered_by_vuln,port_scan,wappalyzer_scan -o owasp-report-wappalyzer.csv -g 22,80,443
       - uses: actions/upload-artifact@v3
         with:
           name: nettacker-report-wappalyzer-${{github.run_number}}
