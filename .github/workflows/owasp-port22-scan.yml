@@ -24,4 +24,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: nettacker-port-scan22-report-${{github.run_number}}
-          path: report_portscan22.csv
+          path: report_port22scan.csv
